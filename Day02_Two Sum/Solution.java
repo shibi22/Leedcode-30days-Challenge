@@ -1,16 +1,24 @@
-class Solution {
+import java.util.HashMap;
+
+public class TwoSum {
     public int[] twoSum(int[] nums, int target) {
-        // Loop through each number
+        // Create a HashMap to store (value, index) pairs
+        HashMap<Integer, Integer> map = new HashMap<>();
+
         for (int i = 0; i < nums.length; i++) {
-            // For each number, check the next numbers
-            for (int j = i + 1; j < nums.length; j++) {
-                // If they add up to the target, return their indexes
-                if (nums[i] + nums[j] == target) {
-                    return new int[] {i, j};
-                }
+            int current = nums[i];
+            int complement = target - current;
+
+            // If complement exists in map, we've found the answer
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
             }
+
+            // Otherwise, store current value with its index
+            map.put(current, i);
         }
-        // Just in case, though problem guarantees a solution
+
+        // If no solution found (as per constraint, this shouldn't happen)
         return new int[] {};
     }
 }
